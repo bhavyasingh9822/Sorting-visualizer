@@ -21,7 +21,18 @@ export default function SortVisualizer(props) {
   const [isSorted, setIsSorted] = useState(false);
   const containerRef = useRef(null);
 
-  useEffect(initialiseArray, []);
+  useEffect(() => {
+  if (isSorting) return;
+  if (isSorted) resetArrayColour();
+  setIsSorted(false);
+  const arr = [];
+  for (let i = 0; i < ARR_LEN; i++) {
+    arr.push((MAX_NUM - MIN_NUM) * (i / ARR_LEN) + MIN_NUM);
+  }
+  shuffle(arr);
+  setArr(arr);
+}, [isSorting, isSorted, resetArrayColour]);
+
 
   function initialiseArray() {
     if (isSorting) return;
